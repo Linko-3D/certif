@@ -30,7 +30,12 @@
                 <option value="house">Immobilier</option>
             </select>
             <div>
-                <ion-icon id="toggle-theme" class="icon small" name="moon" alt="Toggle Theme"></ion-icon>
+                {# <ion-icon id="toggle-theme" class="icon small" name="moon" alt="Toggle Theme"></ion-icon> #}
+                <ion-icon 
+    class="icon small {{ is_granted('IS_AUTHENTICATED_REMEMBERED') ? 'green' : 'red' }}" 
+    name="person">
+</ion-icon>
+
             </div>
         </div>
         <div id="toggle-options" class="options hide">
