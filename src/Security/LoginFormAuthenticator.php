@@ -1,5 +1,7 @@
 <?php
 
+// LoginFormAuthenticator.php
+
 namespace App\Security;
 
 use Symfony\Bundle\SecurityBundle\Security;
