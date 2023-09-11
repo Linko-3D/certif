@@ -27,6 +27,7 @@ html {
     --blue: rgb(141, 165, 243);
     --violet: rgb(195, 142, 241);
     --yellow: rgb(255, 222, 102);
+    --split-color: rgb(70, 112, 149);
 }
 
 body {
@@ -67,6 +68,11 @@ header {
     gap: 1px;
     justify-content: space-between;
     align-items: center;
+}
+
+.split {
+    padding: 0 var(--low-padding);
+    background-color: var(--split-color);
 }
 
 .end {
