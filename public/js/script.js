@@ -97,3 +97,43 @@ const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
   setTheme(savedTheme);
 }
+
+// Accessibility #######################################################################################
+
+// Function to update global variables
+function updateGlobalVariables(fontSize, padding) {
+  const root = document.documentElement;
+  root.style.setProperty('--font-size', fontSize);
+  root.style.setProperty('--padding', padding);
+}
+
+// Function to update localStorage and DOM based on state
+function updateState(isActive) {
+  const accessibilityIcon = document.getElementById("accessibility-icon");
+
+  if (isActive === 'true') {
+    accessibilityIcon.classList.add('active-color');
+    updateGlobalVariables('2.75rem', '5vh');
+  } else {
+    accessibilityIcon.classList.remove('active-color');
+    updateGlobalVariables('2.3rem', '4.3vh');
+  }
+
+  localStorage.setItem('isActive', isActive);
+}
+
+// Get initial state from localStorage or default to 'false'
+let isActive = localStorage.getItem('isActive') || 'false';
+
+// Update state on page load
+updateState(isActive);
+
+// Get reference to the accessibility icon
+const accessibilityIcon = document.getElementById("accessibility-icon");
+
+// Add event listener
+accessibilityIcon.addEventListener('click', function() {
+  // Toggle state
+  isActive = (isActive === 'true') ? 'false' : 'true';
+  updateState(isActive);
+});
