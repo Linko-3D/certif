@@ -53,6 +53,7 @@ function setTheme(theme) {
     root.style.setProperty('--violet', 'rgb(195, 142, 241)');
     root.style.setProperty('--yellow', 'rgb(255, 222, 102)');
     root.style.setProperty('--split-color', 'rgb(70, 112, 149)');
+    root.style.setProperty('--active-color', 'rgb(112, 186, 250)');
     moonIcon.setAttribute('name', 'moon'); // Change the icon name to "moon"
   } else {
     root.style.setProperty('--background-color', 'rgb(255, 255, 255)');
@@ -64,6 +65,7 @@ function setTheme(theme) {
     root.style.setProperty('--violet', 'rgb(168, 93, 233)');
     root.style.setProperty('--yellow', 'rgb(166, 144, 66)');
     root.style.setProperty('--split-color', 'rgb(76, 121, 193)');
+    root.style.setProperty('--active-color', 'rgb(46, 128, 255)');
     moonIcon.setAttribute('name', 'sunny'); // Change the icon name to "sunny"
   }
 }
