@@ -97,6 +97,3 @@ const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
   setTheme(savedTheme);
 }
-
-
-// Translate #################################################
