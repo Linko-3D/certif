@@ -28,6 +28,7 @@ html {
     --violet: rgb(195, 142, 241);
     --yellow: rgb(255, 222, 102);
     --split-color: rgb(70, 112, 149);
+    --active-color: rgb(112, 186, 250);
 }
 
 body {
@@ -183,7 +184,11 @@ img {
 }
 
 a {
-    color: rgb(112, 186, 250);
+    color: var(--active-color);
+}
+
+.active-color {
+    color: var(--active-color);
 }
 
 .red {
@@ -308,10 +313,8 @@ input[type="checkbox"] {
     background-color: var(--color);
 }
 
-/* Make sure this rule is placed after the initial styling */
 input[type="checkbox"]:checked {
-    background-color: rgb(112, 186, 250); /* Change the background color when checked */
-    color: rgb(112, 186, 250); /* Change the text color when checked */
+    background-color: var(--active-color);
 }
 
 .image-gallery {
