@@ -35,22 +35,24 @@
 </head>
 <body>
 <div id="google_translate_element" style="display:none;"></div>
+
+<div id="top-anchor"></div>
+
+<a href="#top-anchor" id="arrow-top">
+    <ion-icon name="arrow-up-circle"></ion-icon>
+</a>
+
+
+
     <header>
         <div class="line">
             <div>
                 <ion-icon id="toggle-options-icon" class="icon small" name="chevron-forward" alt="Toggle Options"></ion-icon>
             </div>
-            <select name="department">
-                <option value="All">Partout</option>
-                <option value="75">75 - Paris</option>
-                <option value="01">01 - Ain</option>
-                <option value="02">02 - Aisne</option>
-            </select>
-            <select name="category">
-                <option value="all">Toute catégorie</option>
-                <option value="car">Voiture</option>
-                <option value="house">Immobilier</option>
-            </select>
+
+            {% block header_content %}{% endblock %}
+
+
             {% if app.user %}
             <a href="{{ path('app_login') }}">
                 <ion-icon class="icon small green" name="person"></ion-icon>
@@ -62,6 +64,7 @@
             {% endif %}
 
         </div>
+
 
 
         {# Options supplémentaires #}

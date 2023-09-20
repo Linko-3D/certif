@@ -4,6 +4,20 @@
 
 {% block title %}Hello HomeController!{% endblock %}
 
+{% block header_content %}
+        <select name="department">
+    <option value="All">Partout</option>
+    <option value="75">75 - Paris</option>
+    <option value="01">01 - Ain</option>
+    <option value="02">02 - Aisne</option>
+</select>
+<select name="category">
+    <option value="all">Toute catégorie</option>
+    <option value="car">Voiture</option>
+    <option value="house">Immobilier</option>
+</select>
+{% endblock %}
+
 {% block body %}
 
     <a class="card online" href="#">

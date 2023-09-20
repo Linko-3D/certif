@@ -241,7 +241,7 @@ a {
     z-index: 3;
     bottom: 5vh;
     right: 2vh;
-    font-size: 3rem;
+    font-size: calc( var(--padding) * 1.5 ) ;
     display: none;
     color: var(--color);
 }
@@ -347,4 +347,13 @@ input[type="checkbox"]:checked {
     height: 100%;
     object-fit: cover;
     scroll-snap-align: center; /* Snap images to the center of the container */
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 400px;  /* Adjust this value as needed */
+    gap: 20px;
 }
