@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ad index{% endblock %}
+
+{% block body %}
+    <h1>Ad index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Images</th>
+                <th>Price</th>
+                <th>DatePosted</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ad in ads %}
+            <tr>
+                <td>{{ ad.id }}</td>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.description }}</td>
+                <td>{{ ad.images ? ad.images|join(', ') : '' }}</td>
+                <td>{{ ad.Price }}</td>
+                <td>{{ ad.DatePosted ? ad.DatePosted|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_ad_show', {'id': ad.id}) }}">show</a>
+                    <a href="{{ path('app_ad_edit', {'id': ad.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ad_new') }}">Create new</a>
+{% endblock %}
