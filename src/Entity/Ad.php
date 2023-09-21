@@ -23,6 +23,12 @@ class Ad
     #[ORM\Column(type: Types::ARRAY)]
     private array $images = [];
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $Price = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $DatePosted = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +66,30 @@ class Ad
     public function setImages(array $images): static
     {
         $this->images = $images;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->Price;
+    }
+
+    public function setPrice(string $Price): static
+    {
+        $this->Price = $Price;
+
+        return $this;
+    }
+
+    public function getDatePosted(): ?\DateTimeInterface
+    {
+        return $this->DatePosted;
+    }
+
+    public function setDatePosted(\DateTimeInterface $DatePosted): static
+    {
+        $this->DatePosted = $DatePosted;
 
         return $this;
     }
