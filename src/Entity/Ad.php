@@ -29,6 +29,9 @@ class Ad
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DatePosted = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ads')]
+    private ?User $User = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Ad
     public function setDatePosted(\DateTimeInterface $DatePosted): static
     {
         $this->DatePosted = $DatePosted;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): static
+    {
+        $this->User = $User;
 
         return $this;
     }

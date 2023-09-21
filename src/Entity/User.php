@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -42,6 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $phoneNumber = null;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Ad::class)]
+    private Collection $ads;
+
+    public function __construct()
+    {
+        $this->ads = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -143,6 +153,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoneNumber(?string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ad>
+     */
+    public function getAds(): Collection
+    {
+        return $this->ads;
+    }
+
+    public function addAd(Ad $ad): static
+    {
+        if (!$this->ads->contains($ad)) {
+            $this->ads->add($ad);
+            $ad->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAd(Ad $ad): static
+    {
+        if ($this->ads->removeElement($ad)) {
+            // set the owning side to null (unless already changed)
+            if ($ad->getUser() === $this) {
+                $ad->setUser(null);
+            }
+        }
 
         return $this;
     }
