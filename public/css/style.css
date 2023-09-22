@@ -75,12 +75,13 @@ ion-icon {
 
 #arrow-top {
     position: fixed;
-    z-index: 3;
     bottom: 2vh;
     right: 2vh;
     font-size: 3rem;
     color: white;
     z-index: 10;
+    transform: translateX(150%);
+    transition: 0.3s;
 }
 
 
