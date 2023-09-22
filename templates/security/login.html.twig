@@ -3,7 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<h1>Connectez-vous à votre compte</h1>
+<h1>Connexion</h1>
 
 
 <form method="post">
@@ -30,4 +30,7 @@
         Sign in
     </button>
 </form>
+
+<a href="{{ path('app_register') }}">S'inscrire</a>
+
 {% endblock %}
