@@ -1,102 +1,26 @@
-{# home/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello HomeController!{% endblock %}
 
-{% block header_content %}
-        <select name="department">
-    <option value="All">Partout</option>
-    <option value="75">75 - Paris</option>
-    <option value="01">01 - Ain</option>
-    <option value="02">02 - Aisne</option>
-</select>
-<select name="category">
-    <option value="all">Toute catégorie</option>
-    <option value="car">Voiture</option>
-    <option value="house">Immobilier</option>
-</select>
-{% endblock %}
-
 {% block body %}
+aaa
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
 
-    <a class="card online" href="#">
-    <div class="vignette"></div>
-    <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder Image">
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    <ion-icon class="favorite inFavorite" name="heart"></ion-icon>
-        <div class="card-text">
-            <div class="bold uppercase">Title</div>
-            <div>100€ • Paris (75)</div>
-        </div>
-    </a>
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/Danyl/Desktop/draft/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/Danyl/Desktop/draft/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
+    </ul>
+</div>
+aaa
 
-    <a class="card" href="#">
-    <div class="vignette"></div>
-    <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder Image">
+<div class="rect">
 
-    <ion-icon class="favorite" name="heart"></ion-icon>
-        <div class="card-text">
-            <div class="bold uppercase">Title</div>
-            <div>100€ • Paris (75)</div>
-        </div>
-    </a>
-
-    <a class="card" href="#">
-    <div class="vignette"></div>
-    <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder Image">
-
-    <ion-icon class="favorite" name="heart"></ion-icon>
-        <div class="card-text">
-            <div class="bold uppercase">Title</div>
-            <div>100€ • Paris (75)</div>
-        </div>
-    </a>
-
-        <a class="card" href="#">
-    <div class="vignette"></div>
-    <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder Image">
-
-    <ion-icon class="favorite" name="heart"></ion-icon>
-        <div class="card-text">
-            <div class="bold uppercase">Title</div>
-            <div>100€ • Paris (75)</div>
-        </div>
-    </a>
-
-        <a class="card" href="#">
-    <div class="vignette"></div>
-    <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder Image">
-
-    <ion-icon class="favorite" name="heart"></ion-icon>
-        <div class="card-text">
-            <div class="bold uppercase">Title</div>
-            <div>100€ • Paris (75)</div>
-        </div>
-    </a>
-
-        <a class="card" href="#">
-    <div class="vignette"></div>
-    <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder Image">
-
-    <ion-icon class="favorite" name="heart"></ion-icon>
-        <div class="card-text">
-            <div class="bold uppercase">Title</div>
-            <div>100€ • Paris (75)</div>
-        </div>
-    </a>
-
-        <a class="card" href="#">
-    <div class="vignette"></div>
-    <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder Image">
-
-    <ion-icon class="favorite" name="heart"></ion-icon>
-        <div class="card-text">
-            <div class="bold uppercase">Title</div>
-            <div>100€ • Paris (75)</div>
-        </div>
-    </a>
-
-
-
+</div>
 {% endblock %}

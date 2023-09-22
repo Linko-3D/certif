@@ -1,151 +1,43 @@
-{# base.html.twig #}
-
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    {% block stylesheets %}
-    {% endblock %}
-    {% block javascripts %}
-    {% endblock %}
-    <script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-            {
-                pageLanguage: 'fr', 
-                includedLanguages: 'fr,en,es',
-                layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT
-            }, 
-            'google_translate_element'
-        );
-    }
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% block stylesheets %}
+        {% endblock %}
 
-    function changeLanguage() {
-        var language = document.getElementById("customTranslate").value;
-        var selectField = document.querySelector("select.goog-te-combo");
-        selectField.value = language;
-        selectField.dispatchEvent(new Event('change'));
-    }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="top-anchor"></div>
 
-</head>
-<body>
-<div id="google_translate_element" style="display:none;"></div>
+        <a href="#top-anchor" id="arrow-top">
+            <ion-icon name="arrow-up-circle"></ion-icon>
+        </a>
 
-<div id="top-anchor"></div>
-
-<a href="#top-anchor" id="arrow-top">
-    <ion-icon name="arrow-up-circle"></ion-icon>
-</a>
-
-
-
-    <header>
-        <div class="line">
+        <header>
             <div>
-                <ion-icon id="toggle-options-icon" class="icon small" name="chevron-forward" alt="Toggle Options"></ion-icon>
+                <ion-icon name="menu-outline"></ion-icon>
             </div>
-
-            {% block header_content %}{% endblock %}
-
-
-            {% if app.user %}
-            <a href="{{ path('app_login') }}">
-                <ion-icon class="icon small green" name="person"></ion-icon>
-            </a>
-            {% else %}
-            <a href="{{ path('app_login') }}">
-                <ion-icon class="icon small red" name="person"></ion-icon>
-            </a>
-            {% endif %}
-
-        </div>
-
-
-
-        {# Options supplémentaires #}
-
-        <div id="toggle-options" class="options hide">
-        <div class="split">
-            Filtres :
-            </div>
-            <div class="line">
-                <input type="search" id="search" name="search" placeholder="Recherche par mot clé (nom, téléphone..)">
-            </div>
-            <div class="line">
-                <select>
-                    <option value="New">Plus récent</option>
-                    <option value="Price">Prix croissant</option>
-                </select>
-            </div>
-            <div class="line">
-                <div class="settings-container">
-                    <input type="checkbox" id="online" name="online" value="checkboxValue">
-                    <label for="online">Utilisateurs en ligne</label>
+                <div>
+                LOGO
                 </div>
-                <div class="settings-container">
-                    <input type="checkbox" id="asComments" name="asComments" value="checkboxValue">
-                    <label for="asComments">Avec commentaire(s)</label>
-                </div>
+            <div>
+                <ion-icon name="search-outline"></ion-icon>
+                <ion-icon name="heart-outline"></ion-icon>
+                <ion-icon name="person-outline"></ion-icon>
             </div>
+        </header>
 
-            <div class="split">
-                <div>Accessibilité :</div>
-            </div>
-            <div class="line">
-                <ion-icon id="toggle-theme" class="icon small" name="moon" alt="Toggle Theme"></ion-icon>
-                <ion-icon id="accessibility-icon" class="icon small" name="accessibility"></ion-icon>
-              <select id="customTranslate" onchange="changeLanguage()">
-    <option value="fr">Français</option>
-    <option value="en">English</option>
-    <option value="es">Español</option>
-  </select>
-
-            </div>
-            <div class="line center">
-            <button type="reset">Réinitialiser</button>
-</div>
-
+        <div class="container">
+        {% block body %}{% endblock %}
         </div>
-    </header>
-    <div class="container">
-    {% block body %}
-    {% endblock %}
-    </div>
-    <footer>
-        <div class="line">
-            <a class="column" href="{{ path('app_home') }}">
-                <ion-icon class="icon blue" name="home" alt="Home"></ion-icon>
-                <div class="selector bg-blue"></div>
-            </a>
 
-        {% if app.user %}
-            <a class="column" href="">
-                <ion-icon class="icon red" name="heart-outline" alt="Favorites"></ion-icon>
-                <div class="selector"></div>
-            </a>
-            <a class="column" href="">
-                <ion-icon class="icon green" name="add-circle-outline" alt="Add"></ion-icon>
-                <div class="selector"></div>
-            </a>
-            <a class="column" href="">
-                <ion-icon class="icon violet" name="mail-outline" alt="Messages"></ion-icon>
-                <div class="selector"></div>
-            </a>
-            <a class="column" href="">
-                <ion-icon class="icon yellow" name="notifications-outline" alt="Notifications"></ion-icon>
-                <div class="selector"></div>
-            </a>
-        {% endif %}
-
-        </div>
-    </footer>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-</body>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    </body>
 </html>
