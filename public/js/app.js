@@ -16,3 +16,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const menuIcon = document.querySelector('ion-icon[name="menu-outline"]');
+    const popupMenu = document.querySelector('.popup-menu');
+
+    menuIcon.addEventListener('click', function () {
+        // Toggle active class
+        popupMenu.classList.toggle('active');
+
+        // Disable or enable scrolling
+        if (popupMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden'; // disable scrolling
+            menuIcon.setAttribute('name', 'close-outline');
+        } else {
+            document.body.style.overflow = ''; // enable scrolling
+            menuIcon.setAttribute('name', 'menu-outline');
+        }
+    });
+});
