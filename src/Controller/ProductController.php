@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTimeImmutable;
 
 #[Route('/product')]
 class ProductController extends AbstractController
@@ -26,6 +27,7 @@ class ProductController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
+        $product->setCreatedAt(new DateTimeImmutable);
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 

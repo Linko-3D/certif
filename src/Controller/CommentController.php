@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTimeImmutable;
 
 #[Route('/comment')]
 class CommentController extends AbstractController
@@ -26,6 +27,7 @@ class CommentController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
+        $comment->setCreatedAt(new DateTimeImmutable);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
