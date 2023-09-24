@@ -28,6 +28,7 @@ class ProductController extends AbstractController
     {
         $product = new Product();
         $product->setCreatedAt(new DateTimeImmutable);
+        $product->setUser($this->getUser());
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 

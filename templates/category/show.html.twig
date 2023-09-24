@@ -22,7 +22,7 @@
 
     <div>
         {% for product in products %}
-            <div>Product {{ product.name }}</div>
+            <a href="{{ path('app_product_show', {'id': product.id}) }}">{{ product.name }}</a>
         {% endfor %}
     </div>
 
