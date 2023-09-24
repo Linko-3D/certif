@@ -17,12 +17,20 @@ html {
 :root {
     --padding: 7vh;
     --icon-size: 3.5vh;
+
     --color-menu: rgb(54, 61, 74);
+
+    --color: white;
+    --red: rgb(252, 127, 127);
+    --green: rgb(142, 239, 151);
+    --blue: rgb(141, 165, 243);
+    --violet: rgb(195, 142, 241);
+    --yellow: rgb(255, 222, 102);
 }
 
 body {
     background-color: rgb(29, 34, 41);
-    color: white;
+    color: var(--color);
     font-size: 2.5rem;
 }
 
@@ -109,6 +117,26 @@ ion-icon {
 
 .black {
     color: black;
+}
+
+.red {
+    color: var(--red);
+}
+
+.green {
+    color: var(--green);
+}
+
+.blue {
+    color: var(--blue);
+}
+
+.violet {
+    color: var(--violet);
+}
+
+.yellow {
+    color: var(--yellow);
 }
 
 
