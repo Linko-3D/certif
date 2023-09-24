@@ -30,11 +30,22 @@
             <a href="{{ path('app_category_index') }}">
                 <ion-icon class="violet" name="list-outline"></ion-icon>
             </a>
+            {% if app.user %}
             <ion-icon class="yellow" name="star-outline"></ion-icon>
+            {% endif %}
+
+
+            {% if app.user %}
+                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
+                                <ion-icon class="green" name="person-outline"></ion-icon>
+                
+                </a>
+
+            {% else %}
                 <a href="{{ path('app_login') }}">
                     <ion-icon class="red" name="person-outline"></ion-icon>
                 </a>
-
+            {% endif %}
             </div>
         </header>
 
