@@ -42,7 +42,7 @@ header, footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
+    left: 0;
     z-index: 10;
     background-color: var(--color-menu);
     width: 100%;
@@ -52,6 +52,12 @@ header, footer {
 
 header {
     top: 0;
+    position: fixed;
+
+}
+
+footer {
+    bottom: 0;
 }
 
 header div {
@@ -63,6 +69,7 @@ header div {
 .container {
     margin: 0 4vw;
     margin-top: var(--padding);
+    min-height: calc(100vh - var(--padding) * 2);
 }
 
 a {
