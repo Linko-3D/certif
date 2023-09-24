@@ -107,14 +107,16 @@ ion-icon {
     opacity: 1;
 }
 
-
+.black {
+    color: black;
+}
 
 
 
 /* draft */
 
 .rect {
-    width: 10%;
+    width: 1%;
     height: 5000px;
-    background-color: red;
+    background-color: rgb(139, 139, 139);
 }
