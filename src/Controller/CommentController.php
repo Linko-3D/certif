@@ -15,14 +15,6 @@ use DateTimeImmutable;
 #[Route('/comment')]
 class CommentController extends AbstractController
 {
-    #[Route('/', name: 'app_comment_index', methods: ['GET'])]
-    public function index(CommentRepository $commentRepository): Response
-    {
-        return $this->render('comment/index.html.twig', [
-            'comments' => $commentRepository->findAll(),
-        ]);
-    }
-
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -41,14 +33,6 @@ class CommentController extends AbstractController
         return $this->render('comment/new.html.twig', [
             'comment' => $comment,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_comment_show', methods: ['GET'])]
-    public function show(Comment $comment): Response
-    {
-        return $this->render('comment/show.html.twig', [
-            'comment' => $comment,
         ]);
     }
 
