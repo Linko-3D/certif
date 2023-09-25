@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Product;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,11 +17,12 @@ use DateTimeImmutable;
 class CommentController extends AbstractController
 {
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
         $comment->setCreatedAt(new DateTimeImmutable);
         $comment->setUser($this->getUser());
+        $comment->setProduct($product);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -28,7 +30,9 @@ class CommentController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_product_show', [
+                'id' => $product->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('comment/new.html.twig', [
