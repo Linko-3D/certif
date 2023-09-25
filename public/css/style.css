@@ -153,5 +153,5 @@ ion-icon {
 .rect {
     width: 1%;
     height: 5000px;
-    background-color: rgb(139, 139, 139);
+    /* background-color: rgb(139, 139, 139); */
 }
