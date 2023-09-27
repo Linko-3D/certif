@@ -36,7 +36,7 @@
 
 
             {% if app.user %}
-                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
+                <a href="{{ path('app_user_edit') }}">
                     <ion-icon class="green" name="person-outline"></ion-icon>
                 </a>
             {% else %}
