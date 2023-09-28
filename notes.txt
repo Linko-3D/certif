@@ -1,0 +1,389 @@
+# Projet Symfony
+## A installer
+VS Code: https://code.visualstudio.com/
+Git: https://git-scm.com/downloads
+XAMPP: https://www.apachefriends.org/
+Composer: https://getcomposer.org/download/
+Scoop (dans Windows PowerShell): https://scoop.sh/
+Symfony CLI (après avoir installé Scoop et dans WIndows PowerShell): https://symfony.com/download
+7zip: https://www.7-zip.org/download.html
+Google Chrome (navigateur le plus utilisé surtout sur mobile)
+
+## Créer un projet
+```bash
+symfony new mon-project
+```
+
+< ! > IMPORTANT: allez ensuite dans le dossier de votre projet avant de faire le reste. < ! >
+
+## (Optionnel) Voir le site dans le navigateur
+```bash
+symfony serve
+```
+Site à l'adresse http://127.0.0.1:8000/
+Si rien ne s'affiche lancez plusieurs fois cette commande avant de recommencer:
+```bash
+symfony server:stop
+```
+## Installation dans le projet
+Une fois le projet créé il faut executer ces commandes (vous pouvez tout copier/coller en même temps):
+```bash
+composer require symfony/maker-bundle --dev
+composer require twig
+composer require security
+composer require form validator
+composer require symfony/asset
+composer require --dev symfony/profiler-pack
+composer require symfonycasts/reset-password-bundle
+composer require doctrine
+```
+```bash
+composer require symfonycasts/verify-email-bundle symfony/mailer
+```
+## Créer la base de donnée
+Dans le fichier .env commentez la ligne avec un # qui commence par DATABASE_URL="postgresql et enlevez le commentaire de celle au dessus qui contient MariaDB (si vous utilisez XAMPP).
+remplacez app:!ChangeMe! par root: et changez app par le nom de la base de donné. Exemple pour un site d'annonce:
+```bash
+DATABASE_URL="mysql://root:@127.0.0.1:3306/database?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
+```
+Lancez XAMPP et démarrez MySQL puis executez cette commande pour créer la base de donné:
+```bash
+symfony console doctrine:database:create
+```
+Peut être réduit en d:d:c
+
+
+
+
+
+
+## Les utilisateurs
+Créer l'entité user:
+```bash
+symfony console make:user
+```
+La page d'inscription (paramètres plus bas):
+```bash
+symfony console make:registration-form
+```
+Paramètres:
+```bash
+What email address will be used:
+no-reply@domain.com
+
+What "name" should be associated:
+NoReply Notifications
+
+Do you want to automatically authenticate the user:
+no
+
+What route:
+app_home
+```
+
+Serveur SMTP: https://mailtrap.io/, cliquer sur Email Testing puis Add Inbox, cliquez dessus, dans Integrations mettez Symfony 5+ puis copier la ligne MAILER_DSN et mettez là en bas du .env.
+
+La page de connexion. Pour le premier paramètre choisissez:
+```bash
+symfony console make:auth
+```
+- [1] Login form authenticator
+- LoginFormAuthenticator
+
+Dans Security/LoginFormAuthenticator.php, à la ligne 52, remplacez 'some_route' par 'app_home'. Retirez le commentaire de cette ligne et supprimez la ligne suivante qui commence par "throw new".
+
+## Reset password
+
+Installer ce bundle (paramètres plus bas):
+```bash
+php bin/console make:reset-password
+```
+
+Paramètres:
+```bash
+app_home
+
+no-reply@domain.com
+
+NoReply Notifications
+```
+
+La route pour tester le reset est: /reset-password mais avant il faut faire la migration
+
+## Migration des entités dans la base de donnée:
+```bash
+symfony console make:migration
+symfony console d:m:m
+```
+ou le forcing sans fichier de migration:
+```bash
+php bin/console doctrine:schema:update --force
+```
+
+## Créer une entité
+Les entités commencent par une lettre majuscule et son écrit en camel case. Les propriétés sont écrite en miniscule et sont en camel case.
+```bash
+symfony console make:entity
+```
+
+Exemple d'entités et leurs relations pour un site de vente entre particuliers:
+Category:
+- name, type: string
+
+Location:
+- name, type: string
+
+Comment:
+- content, type: text
+- createdAt, type: immutable
+- user, type: relation User ManyToOne, not null, delete orphaned
+
+Product:
+- name, type: string
+- description, type: text
+- price, type: decimal, precision=10, scale=2
+- createdAt, type: datetime_immutable
+- image, type: string
+- status, type: string
+
+- user, type: relation User ManyToOne, not null, delete orphaned
+- category, type: relation Category ManyToOne, not null
+- location, type: relation Location ManyToOne, not null
+- comments, type: relation Comment OneToMany, not null, delete orphaned
+
+## Générer le crud (faites toutes les relations avant):
+```bash
+symfony console make:crud
+```
+
+Pour User, Category et Location nommez les crud AdminUser, AdminCategory et LocationCategory, il n'y aura que l'admin qui pourra les manipuler.
+
+Ensuite allez dans src/Entity et pour chaque entité (à part ResetPasswordRequest) ajouter une ligne pour pouvoir identifier le paramètre mis en relation. Par exemple le User sera identifié par son email. Dans User.php on ajoute la ligne suivante:
+```twig
+    public function __toString() {
+        return $this->email;
+    }
+```
+Product, Category et Location sont identifiés par name.
+
+Pour que ce soit la date du jour et que l'utilisateur actuellement connecté soit sélectionné pour Product et Comment allez dans le controller, dans la fonction new, ajouter ces lignes pour le produit:
+```php
+        $product->setCreatedAt(new DateTimeImmutable);
+	$product->setUser($this->getUser());
+```
+Et ne pas oublier d'importer 
+```php
+use DateTimeImmutable;
+```
+Ensuite enlevez les lignes correspondantes dans le formulaire dans src/Form/ProductType.
+
+Faire pareil pour Comment.
+
+## Gérer les utilisateurs
+
+Dans le twig admin_user/index.html.twig et le admin_user/index.html.twig enlevez les th et td qui correspondent à Roles et Password. Puis enlever le champ rôle du formulaire UserType. Pour la sécurité il ne faut pas pouvoir donner le rôle admin depuis un formulaire.
+
+Le formulaire va stocker le mot de passe sans le hasher, il faut donc ne pas l'envoyer directement. Changer la ligne password et renommez là plainPassword et ajoutez des paramètres:
+```php
+            ->add('plainPassword', TextType::class, [
+                'mapped' => false
+            ])
+```
+Puis mettre l'extension pour qu'il reconnaisse TextType
+```php
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+```
+
+Ajouter dans la fonction new du AdminUserController ceci
+
+```php
+UserPasswordHasherInterface $passwordHasher
+```
+
+et le use:
+
+```php
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+```
+
+Dans la condition "if ($form->isSubmitted() && $form->isValid())" ajoutez ces lignes tout en haut:
+```php
+            $plainPassword = $form->get('plainPassword')->getData();
+            $hashPassword = $passwordHasher->hashPassword($user, $plainPassword);
+            $user->setPassword($hashPassword);
+```
+
+Faire la même chose pour le edit.
+
+## Mettre en relation les entités
+
+Faire un crud appelé Category et ne garder dans le controller que l'index et show, supprimer le reste ainsi que les pages twig. Enlever les liens vers l'edit et delete des pages.
+
+## Afficher les Products de Category
+
+Controller Category show:
+
+```php
+        $products = $category->getProducts();
+        return $this->render('category/show.html.twig', [
+            'category' => $category,
+            'products' => $products
+        ]);
+```
+
+Twig category show.html.twig avec un lien pour ouvrir le produit:
+
+```twig
+        {% for product in products %}
+            <a href="{{ path('app_product_show', {'id': product.id}) }}">{{ product.name }}</a>
+        {% endfor %}
+```
+
+
+Dans Product show mettre un lien pour ajouter un commentaire en envoyant l'id de l'article actuel:
+
+```twig
+<a href="{{ path('app_comment_new', {'id': product.id}) }}">Ajouter un commentaire</a>
+```
+
+Changer la route principal pour Comment pour avoir l'id dans l'url et enlever tout les {id} des autres routes:
+```php
+#[Route('/product/{id}/comment')]
+```
+
+Pour faire le param converter ajouter Product $product dans les parenthèse du new et faire un use App\Entity\Product;
+
+Dans le new ajouter cette ligne:
+```php
+$comment->setProduct($product);
+```
+
+L'enlever du formulaire.
+
+Changer le return pour rediriger vers le produit après avoir commenté:
+```php
+            return $this->redirectToRoute('app_product_show', [
+                'id' => $product->getId()
+            ], Response::HTTP_SEE_OTHER);
+```
+
+
+######################################################################################################################################################################
+###################################################################################################################################################################### 11 min
+######################################################################################################################################################################
+
+Finalisation:
+
+Enlever le commentaire dans config/packages/security.yaml pour les pages admins:
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+Dans la base de donné ajouter manuellement le role admin pour le compte désiré:
+
+["ROLE_ADMIN"]
+
+##########
+
+Todo:
+Montrer lien dynamique pour éditer le profile:
+
+            {% if app.user %}
+                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
+                    <ion-icon class="green" name="person-outline"></ion-icon>
+                </a>
+            {% else %}
+                <a href="{{ path('app_login') }}">
+                    <ion-icon class="red" name="person-outline"></ion-icon>
+                </a>
+            {% endif %}
+
+
+
+
+
+
+
+## Page d'accueil
+```bash
+symfony console make:controller Home
+```
+Puis changer la route "/home" en "/".
+
+Modifiez base.html.twig pour importer le CSS, JavaScript, mettre un header et importer des icônes en lignes:
+
+```twig
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>
+```
+
+css/style.css, si le CSS et JavaScript ne s'appliquent pas, dans Chrome allez dans les paramètres > Confidantialité et sécurité > Effacer les données de navigation, dans la fenêtre qui s'ouver cochez "Images et fichiers en cache"
+```css
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    border: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: rgb(29, 34, 41);
+    color: white;
+}
+
+a {
+    color: rgb(112, 186, 250);
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+Prio: formulaire contact
+
+Todo:
+
+
+mdp 8 char
+réinitialiser mdp
+cookies
+Page profil
+
+Bonus: confirmer mdp
