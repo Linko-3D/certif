@@ -15,6 +15,7 @@ html {
 }
 
 :root {
+    --font-size: 2.5rem;
     --padding: 7vh;
     --icon-size: 3.5vh;
 
@@ -31,11 +32,18 @@ html {
 body {
     background-color: rgb(29, 34, 41);
     color: var(--color);
-    font-size: 2.5rem;
+    font-size: var(--font-size);
+}
+
+button {
+    font-size: var(--font-size);
+    background-color: rgb(76, 83, 94);
+    color: white;
 }
 
 h1 {
     font-size: 3.5rem;
+    text-align: center;
 }
 
 header, footer {
@@ -76,6 +84,15 @@ a {
     color: rgb(112, 186, 250);
     display: flex;
     align-items: center;
+}
+
+label {
+    display: flex;
+}
+
+input, button {
+    height: 4vh;
+    width: 100%;
 }
 
 ion-icon {
