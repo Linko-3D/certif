@@ -9,6 +9,11 @@ Symfony CLI (après avoir installé Scoop et dans WIndows PowerShell): https://s
 7zip: https://www.7-zip.org/download.html
 Google Chrome (navigateur le plus utilisé surtout sur mobile)
 
+Note: si vous récupérez un projet faites
+```bash
+composer install
+```
+
 ## Créer un projet
 ```bash
 symfony new mon-project
@@ -40,6 +45,9 @@ composer require doctrine
 ```bash
 composer require symfonycasts/verify-email-bundle symfony/mailer
 ```
+
+Installer Twig dans VS Code.
+
 ## Créer la base de donnée
 Dans le fichier .env commentez la ligne avec un # qui commence par DATABASE_URL="postgresql et enlevez le commentaire de celle au dessus qui contient MariaDB (si vous utilisez XAMPP).
 remplacez app:!ChangeMe! par root: et changez app par le nom de la base de donné. Exemple pour un site d'annonce:

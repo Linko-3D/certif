@@ -18,8 +18,9 @@ html {
     --font-size: 2.5rem;
     --padding: 7vh;
     --icon-size: 3.5vh;
+    --background-color: rgb(29, 34, 41);
 
-    --color-menu: rgb(54, 61, 74);
+    --panel-color: rgb(54, 61, 74);
 
     --color: white;
     --red: rgb(252, 127, 127);
@@ -30,7 +31,7 @@ html {
 }
 
 body {
-    background-color: rgb(29, 34, 41);
+    background-color: var(--background-color);
     color: var(--color);
     font-size: var(--font-size);
 }
@@ -52,7 +53,7 @@ header, footer {
     justify-content: space-between;
     left: 0;
     z-index: 10;
-    background-color: var(--color-menu);
+    background-color: var(--panel-color);
     width: 100%;
     height: var(--padding);
     padding: 0 5vw;
@@ -122,11 +123,18 @@ ion-icon {
 }
 
 .popup-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+    padding-top: var(--padding);
     position: fixed;
-    background-color: var(--color-menu);
+    background-color: var(--panel-color);
     z-index: 5;
     transform: translateX(-100%);
-    opacity: 0;
+    opacity: 1;
     transition: 0.3s;
     top: 0;
     left: 0;
