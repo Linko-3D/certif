@@ -13,6 +13,10 @@ Google Chrome (navigateur le plus utilisé surtout sur mobile)
 ```bash
 symfony new mon-project
 ```
+ou
+```bash
+symfony new -webapp mon-project
+```
 
 < ! > IMPORTANT: allez ensuite dans le dossier de votre projet avant de faire le reste. < ! >
 
@@ -387,3 +391,17 @@ cookies
 Page profil
 
 Bonus: confirmer mdp
+
+
+
+
+
+
+
+
+
+
+
+Technos:
+
+KnpPaginatorBundle
