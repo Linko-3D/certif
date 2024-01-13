@@ -1,4 +1,4 @@
-# Projet Symfony
+# Créer son site pour la certif en 30 minutes (WIP)
 ## A installer
 VS Code: https://code.visualstudio.com/
 Git: https://git-scm.com/downloads
@@ -52,6 +52,25 @@ composer require symfonycasts/verify-email-bundle symfony/mailer
 
 Installer Twig dans VS Code.
 
+## Pages admins
+
+Enlever le commentaire dans config/packages/security.yaml pour les pages admins (seul l'admin pourra y acceder):
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+Dans la base de donné ajouter manuellement le role admin pour le compte désiré:
+
+["ROLE_ADMIN"]
+
+
+
+
+
+
+
+
+
 ## Créer la base de donnée
 Dans le fichier .env commentez la ligne avec un # qui commence par DATABASE_URL="postgresql et enlevez le commentaire de celle au dessus qui contient MariaDB (si vous utilisez XAMPP).
 remplacez app:!ChangeMe! par root: et changez app par le nom de la base de donné. Exemple pour un site d'annonce:
@@ -63,11 +82,6 @@ Lancez XAMPP et démarrez MySQL puis executez cette commande pour créer la base
 symfony console doctrine:database:create
 ```
 Peut être réduit en d:d:c
-
-
-
-
-
 
 ## Les utilisateurs
 Créer l'entité user:
@@ -121,6 +135,20 @@ NoReply Notifications
 ```
 
 La route pour tester le reset est: /reset-password mais avant il faut faire la migration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Migration des entités dans la base de donnée:
 ```bash
@@ -178,6 +206,16 @@ Ensuite allez dans src/Entity et pour chaque entité (à part ResetPasswordReque
 ```
 Product, Category et Location sont identifiés par name.
 
+
+
+
+
+
+
+
+
+
+
 Pour que ce soit la date du jour et que l'utilisateur actuellement connecté soit sélectionné pour Product et Comment allez dans le controller, dans la fonction new, ajouter ces lignes pour le produit:
 ```php
         $product->setCreatedAt(new DateTimeImmutable);
@@ -230,6 +268,16 @@ Faire la même chose pour le edit.
 ## Mettre en relation les entités
 
 Faire un crud appelé Category et ne garder dans le controller que l'index et show, supprimer le reste ainsi que les pages twig. Enlever les liens vers l'edit et delete des pages.
+
+
+
+
+
+
+
+
+
+
 
 ## Afficher les Products de Category
 
@@ -314,7 +362,7 @@ Montrer lien dynamique pour éditer le profile:
 
 
 
-
+# Front end
 
 ## Page d'accueil
 ```bash
